@@ -3,7 +3,7 @@ pipeline{
 	stages{
 		stage('Ping remote'){
 			steps{
-				sh 'ansible webservers -m ping'
+				sh 'cat /var/lib/jenkins/secrets/initialAdminPassword'
 			}
 		}
 		stage('display'){
