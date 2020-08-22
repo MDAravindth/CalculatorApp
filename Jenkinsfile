@@ -11,5 +11,10 @@ pipeline{
          				sh 'ls -lrt target/'
       				}	
 			}
+			stage('Deploy to tomcat'){
+				steps{
+					sh 'cp target/com.ms.calc.war /home/da/tomcat7/webapps/'	
+				}
+			}
 		}
 }
