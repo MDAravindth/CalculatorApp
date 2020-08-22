@@ -1,13 +1,15 @@
-pipleline{
+pipeline{
 	agent any 
 		stages{
 			stage('Build'){
 				steps{
 					sh 'mvn clean package'
 				}
-      stage('Display'){
-         sh 'ls -lrt target/'
-      }
+			}	
+      			stage('Display'){
+				steps{
+         				sh 'ls -lrt target/'
+      				}	
 			}
 		}
 }
