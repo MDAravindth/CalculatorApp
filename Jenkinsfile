@@ -4,7 +4,7 @@ pipeline{
 		stage("Download artifact"){
 			steps{
 				echo "Hello"
-				ls -lrt
+				sh "ls -lrt"
 			}
 		}
 	}
