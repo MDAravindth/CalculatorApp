@@ -1,20 +1,10 @@
 pipeline{
-	agent any 
-		stages{
-			stage('Build'){
-				steps{
-					sh 'mvn clean package'
-				}
-			}	
-      			stage('Display'){
-				steps{
-         				sh 'ls -lrt target/'
-      				}	
+	agent { any }
+	stages{
+		stage("Download artifact"){
+			steps{
+				echo "Hello"
+				ls -lrt
 			}
-			stage('Deploy to tomcat'){
-				steps{
-					sh 'cp target/com.ms.calc.war /home/da/tomcat7/webapps/'	
-				}
-			}
-		}
+	}
 }
