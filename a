@@ -22,5 +22,31 @@ pipeline{
                 bat 'echo %DEP_TO% %BRANCH%'
             }
         }
+        stage("sequential"){
+            stages{
+                stage("Deploy to DEV"){
+                    steps{
+                        bat "echo this is DEV"
+                        //bat 'ansible-playbook site.yaml --extra-vars="host=DEV"'
+                    }
+                }
+                stage("Deploy to UAT"){
+                    steps{
+                        bat "echo this is UAT"
+                        //bat 'ansible-playbook site.yaml --extra-vars="host=UAT"'
+                    }
+                }
+                stage("Deploy to PROD"){
+                    input {
+                        message "Continue to deploy in PROD??"
+                        ok "Yes, we should."
+                    }
+                    steps{
+                        bat "echo this is PROD"
+                        //bat 'ansible-playbook site.yaml --extra-vars="host=PROD"'
+                    }
+                }
+            }
+        }
     }
 }
