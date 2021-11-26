@@ -1,11 +1,14 @@
 def b = "master"
 pipeline{
     agent any
+    parameters{
+        choice(choices: ['DEV', 'UAT', 'PROD'], description: '', name: 'DEP_TO')
+    }
     stages{
         stage("SCM checkout"){
             steps{
                 git url: 'https://github.com/MDAravindth/CalculatorApp.git',
-                   branch: "${b}"
+                   branch: "$DEP_TO"
                 }
         }
         stage("build"){
