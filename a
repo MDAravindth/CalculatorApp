@@ -4,6 +4,7 @@ pipeline{
     parameters{
         choice(choices: ['master','dev','release','bugfix'], name: 'BRANCH')
         choice(choices: ['DEV', 'UAT', 'PROD'], description: '', name: 'DEP_TO')
+        booleanParam(defaultValue: false, description: 'Yes or No', name: 'Deploy_to_PROD')
     }
     stages{
         stage("SCM checkout"){
@@ -37,9 +38,12 @@ pipeline{
                     }
                 }
                 stage("Deploy to PROD"){
-                    input {
-                        message "Continue to deploy in PROD??"
-                        ok "Yes, we should."
+                    //input {
+                      //  message "Continue to deploy in PROD??"
+                        //ok "Yes, we should."
+                    //}
+                    when{
+                        environment name: "DEP_TO", value: "PROD"
                     }
                     steps{
                         bat "echo this is PROD"
