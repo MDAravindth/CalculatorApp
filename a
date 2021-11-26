@@ -2,18 +2,24 @@ def b = "master"
 pipeline{
     agent any
     parameters{
+        choice(choices: ['master','dev','release','bugfix'], name: 'BRANCH')
         choice(choices: ['DEV', 'UAT', 'PROD'], description: '', name: 'DEP_TO')
     }
     stages{
         stage("SCM checkout"){
             steps{
                 git url: 'https://github.com/MDAravindth/CalculatorApp.git',
-                   branch: "$DEP_TO"
+                   branch: "$BRANCH"
                 }
         }
         stage("build"){
             steps{
                 bat 'mvn clean package'
+            }
+        }
+        stage("deploy"){
+            steps{
+                bat 'echo %DEP_TO% %BRANCH%'
             }
         }
     }
